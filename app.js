@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const data = await loadData();
     if (data) {
         initTheme();
+        initLanguage();
         renderContent(data);
         initNavigation();
     }
@@ -36,42 +37,114 @@ function initTheme() {
     });
 }
 
+// Language Management
+function initLanguage() {
+    const langToggle = document.getElementById('lang-toggle');
+    const html = document.documentElement;
+
+    const savedLang = localStorage.getItem('lang') || 'en';
+    html.setAttribute('data-lang', savedLang);
+    updateLanguage(savedLang);
+
+    langToggle.addEventListener('click', () => {
+        const currentLang = html.getAttribute('data-lang');
+        const newLang = currentLang === 'en' ? 'bn' : 'en';
+        html.setAttribute('data-lang', newLang);
+        localStorage.setItem('lang', newLang);
+        updateLanguage(newLang);
+    });
+}
+
+function updateLanguage(lang) {
+    const langToggle = document.getElementById('lang-toggle');
+    langToggle.querySelector('.lang-text').textContent = lang.toUpperCase();
+
+    // Update all elements with data-en and data-bn attributes
+    document.querySelectorAll('[data-en][data-bn]').forEach(el => {
+        if (el.tagName === 'A' && el.classList.contains('nav-link')) {
+            el.textContent = lang === 'bn' ? el.getAttribute('data-bn') : el.getAttribute('data-en');
+        } else if (el.tagName === 'SPAN' && el.parentElement.tagName === 'H1') {
+            // Don't override name highlights
+            if (!el.classList.contains('highlight')) {
+                el.textContent = lang === 'bn' ? el.getAttribute('data-bn') : el.getAttribute('data-en');
+            }
+        } else {
+            el.textContent = lang === 'bn' ? el.getAttribute('data-bn') : el.getAttribute('data-en');
+        }
+    });
+
+    // Update dynamic content from data.json
+    updateDynamicContent(lang);
+}
+
+function updateDynamicContent(lang) {
+    const data = window.portfolioData;
+    if (!data) return;
+
+    // Update bio
+    const bioEl = document.getElementById('hero-bio');
+    if (bioEl && data.personal.bio[lang]) {
+        bioEl.innerHTML = data.personal.bio[lang].join('<br>');
+    }
+
+    // Update role
+    const roleEl = document.getElementById('hero-role');
+    if (roleEl && data.personal.role[lang]) {
+        roleEl.textContent = data.personal.role[lang];
+    }
+
+    // Update resume intro
+    const resumeIntro = document.getElementById('resume-intro');
+    if (resumeIntro && data.resume.intro[lang]) {
+        resumeIntro.textContent = data.resume.intro[lang];
+    }
+
+    // Update skills intro
+    const skillsIntro = document.getElementById('skills-intro');
+    if (skillsIntro && data.resume.skillsIntro[lang]) {
+        skillsIntro.textContent = data.resume.skillsIntro[lang];
+    }
+
+    // Update work intro
+    const workIntro = document.getElementById('work-intro');
+    if (workIntro && data.resume.workIntro[lang]) {
+        const downloadText = lang === 'bn' ? 'আমার জীবনবৃত্তান্ত ডাউনলোড করুন 📄' : 'download my resume 📄';
+        workIntro.innerHTML = `${data.resume.workIntro[lang]} <a href="${data.resume.downloadUrl}" class="link-highlight">${downloadText}</a>`;
+    }
+}
+
 // Content Rendering
 function renderContent(data) {
+    window.portfolioData = data;
+    const lang = document.documentElement.getAttribute('data-lang') || 'en';
+
     // Hero Section
     document.getElementById('hero-name').textContent = data.personal.name;
-    document.getElementById('hero-role').textContent = data.personal.role;
-    document.getElementById('hero-bio').innerHTML = data.personal.bio.join('<br>');
+    document.getElementById('hero-role').textContent = data.personal.role[lang];
+    document.getElementById('hero-bio').innerHTML = data.personal.bio[lang].join('<br>');
 
     // Hero stats
     const statsContainer = document.getElementById('hero-stats');
     statsContainer.innerHTML = data.personal.stats.map(stat => `
         <div class="stat-item">
             <span class="stat-number">${stat.value}</span>
-            <span class="stat-label">${stat.label}</span>
+            <span class="stat-label">${stat.label[lang]}</span>
         </div>
     `).join('');
 
-    // Contact emails
+    // Contact email - only show as hyperlink, not text
     const emailLink = document.getElementById('contact-email');
-    emailLink.textContent = data.personal.email;
     emailLink.href = `mailto:${data.personal.email}`;
+    emailLink.textContent = lang === 'bn' ? 'ইমেইল পাঠান' : 'Send Email';
 
     const emailLinkPage = document.getElementById('contact-email-page');
-    emailLinkPage.textContent = data.personal.email;
     emailLinkPage.href = `mailto:${data.personal.email}`;
-
-    // Contact phone & location
-    const phoneLink = document.getElementById('contact-phone');
-    phoneLink.textContent = data.personal.phone;
-    phoneLink.href = `tel:${data.personal.phone.replace(/\D/g, '')}`;
-
-    document.getElementById('contact-location').textContent = data.personal.location;
+    emailLinkPage.textContent = lang === 'bn' ? 'ইমেইল পাঠান' : 'Send Email';
 
     // Contact backup
     const backupLink = document.getElementById('contact-backup');
     if (backupLink) {
-        backupLink.textContent = data.contact.backup.label;
+        backupLink.textContent = data.contact.backup.label[lang];
         backupLink.href = data.contact.backup.url;
     }
 
@@ -79,56 +152,60 @@ function renderContent(data) {
     document.getElementById('footer-name').textContent = data.personal.name;
 
     // Featured Projects (home)
-    renderFeaturedProjects(data.projects);
+    renderFeaturedProjects(data.projects, lang);
 
     // All Projects
-    renderProjects(data.projects);
+    renderProjects(data.projects, lang);
 
     // Social Links
     renderSocialLinks(data.personal.social);
     renderContactSocialLinks(data.personal.social);
 
     // Resume
-    document.getElementById('resume-intro').textContent = data.resume.intro;
-    document.getElementById('skills-intro').textContent = data.resume.skillsIntro;
-    document.getElementById('work-intro').innerHTML = `${data.resume.workIntro} <a href="${data.resume.downloadUrl}" class="link-highlight">download my resume 📄</a>`;
+    document.getElementById('resume-intro').textContent = data.resume.intro[lang];
+    document.getElementById('skills-intro').textContent = data.resume.skillsIntro[lang];
+    const downloadText = lang === 'bn' ? 'আমার জীবনবৃত্তান্ত ডাউনলোড করুন 📄' : 'download my resume 📄';
+    document.getElementById('work-intro').innerHTML = `${data.resume.workIntro[lang]} <a href="${data.resume.downloadUrl}" class="link-highlight">${downloadText}</a>`;
 
     // Skills with categories
     renderSkills(data.resume.skills);
 
     // Work Timeline
-    renderTimeline(data.resume.experience);
+    renderTimeline(data.resume.experience, lang);
 
     // Education
-    renderEducation(data.education);
+    renderEducation(data.education, lang);
 
     // Certifications
-    renderCertifications(data.certifications);
+    renderCertifications(data.certifications, lang);
 
     // Interests
-    renderInterests(data.interests);
+    renderInterests(data.interests, lang);
 
     // Awards
-    renderAwards(data.awards);
+    renderAwards(data.awards, lang);
 
     // LeetCode
-    renderLeetCode(data.leetcode);
+    renderLeetCode(data.leetcode, lang);
 }
 
-function renderFeaturedProjects(projects) {
+function renderFeaturedProjects(projects, lang) {
     const container = document.getElementById('featured-projects');
     const featured = projects.filter(p => p.featured);
+    const viewLabel = lang === 'bn' ? 'দেখুন' : 'View Project';
+    const githubLabel = lang === 'bn' ? 'গিটহাব' : 'GitHub';
+
     container.innerHTML = featured.map(project => `
         <div class="project-card">
             <div class="project-header">
                 <h3 class="project-title">${project.title}</h3>
                 ${project.badge ? `<span class="project-badge">${project.badge}</span>` : ''}
             </div>
-            <p class="project-description">${project.description}</p>
+            <p class="project-description">${project.description[lang]}</p>
             <div class="project-links">
                 ${project.links.map(link => `
                     <a href="${link.url}" class="project-link" target="_blank" rel="noopener">
-                        ${link.label}
+                        ${link.type === 'github' ? githubLabel : viewLabel}
                         <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                             <polyline points="15 3 21 3 21 9"/>
@@ -141,19 +218,22 @@ function renderFeaturedProjects(projects) {
     `).join('');
 }
 
-function renderProjects(projects) {
+function renderProjects(projects, lang) {
     const container = document.getElementById('projects-container');
+    const viewLabel = lang === 'bn' ? 'দেখুন' : 'View Project';
+    const githubLabel = lang === 'bn' ? 'গিটহাব' : 'GitHub';
+
     container.innerHTML = projects.map(project => `
         <div class="project-card">
             <div class="project-header">
                 <h3 class="project-title">${project.title}</h3>
                 ${project.badge ? `<span class="project-badge">${project.badge}</span>` : ''}
             </div>
-            <p class="project-description">${project.description}</p>
+            <p class="project-description">${project.description[lang]}</p>
             <div class="project-links">
                 ${project.links.map(link => `
                     <a href="${link.url}" class="project-link" target="_blank" rel="noopener">
-                        ${link.label}
+                        ${link.type === 'github' ? githubLabel : viewLabel}
                         <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                             <polyline points="15 3 21 3 21 9"/>
@@ -219,83 +299,78 @@ function renderSkills(skills) {
     });
 
     const categoryNames = {
-        languages: 'Languages',
-        flutter: 'Flutter',
-        android: 'Android Native',
-        architecture: 'Principles & Architecture',
-        other: 'Other Tools & Services'
+        languages: { en: 'Languages', bn: 'ভাষা' },
+        flutter: { en: 'Flutter', bn: 'ফ্লাটার' },
+        android: { en: 'Android Native', bn: 'অ্যান্ড্রয়েড নেটিভ' },
+        architecture: { en: 'Principles & Architecture', bn: 'নীতি ও আর্কিটেকচার' },
+        other: { en: 'Other Tools & Services', bn: 'অন্যান্য টুল ও সার্ভিস' }
     };
+
+    const lang = document.documentElement.getAttribute('data-lang') || 'en';
 
     container.innerHTML = Object.entries(categories).map(([category, items]) => `
         <div class="skill-category">
-            <h3 class="skill-category-title">${categoryNames[category] || category}</h3>
+            <h3 class="skill-category-title">${categoryNames[category] ? categoryNames[category][lang] : category}</h3>
             <div class="skills-container">
-                ${items.map(skill => `
-                    <span class="skill-tag">
-                        <span class="skill-icon" data-icon="${skill.icon}"></span>
-                        ${skill.name}
-                    </span>
-                `).join('')}
+                ${items.map(skill => {
+        const iconSvg = skillIcons[skill.icon] || skillIcons.github;
+        return `
+                        <span class="skill-tag">
+                            <span class="skill-icon">${iconSvg}</span>
+                            ${skill.name}
+                        </span>
+                    `;
+    }).join('')}
             </div>
         </div>
     `).join('');
-
-    // Load SVGs from files
-    document.querySelectorAll('.skill-icon[data-icon]').forEach(async span => {
-        const iconName = span.getAttribute('data-icon');
-        try {
-            const response = await fetch(`assets/skills/${iconName}.svg`);
-            if (response.ok) {
-                const svgContent = await response.text();
-                span.innerHTML = svgContent;
-            } else {
-                // Fallback to github if icon missing
-                const fallback = await fetch('assets/skills/github.svg');
-                if (fallback.ok) {
-                    span.innerHTML = await fallback.text();
-                }
-            }
-        } catch (error) {
-            console.error(`Error loading icon ${iconName}:`, error);
-        }
-    });
 }
 
-function renderTimeline(experience) {
+function renderTimeline(experience, lang) {
     const container = document.getElementById('work-timeline');
+    const currentLabel = lang === 'bn' ? 'বর্তমান' : 'Current';
+    const typeLabels = {
+        'Contractual': { en: 'Contractual', bn: 'চুক্তিভিত্তিক' },
+        'Full-Time': { en: 'Full-Time', bn: 'পূর্ণকালীন' }
+    };
+
     container.innerHTML = experience.map(job => `
         <div class="timeline-item">
             <div class="timeline-header">
                 <h3 class="timeline-title">${job.title}</h3>
-                ${job.current ? '<span class="timeline-badge">Current</span>' : ''}
+                ${job.current ? `<span class="timeline-badge">${currentLabel}</span>` : ''}
             </div>
             <div class="timeline-meta">
                 <span class="timeline-company">${job.company}</span>
                 <span class="timeline-location">
                     ${job.flag} ${job.location}
                 </span>
-                <span class="timeline-type">• ${job.type}</span>
+                <span class="timeline-type">• ${typeLabels[job.type] ? typeLabels[job.type][lang] : job.type}</span>
             </div>
             <div class="timeline-date">${job.startDate} — ${job.endDate}</div>
             <ul class="timeline-duties">
-                ${job.duties.map(duty => `<li>${duty}</li>`).join('')}
+                ${job.duties[lang].map(duty => `<li>${duty}</li>`).join('')}
             </ul>
         </div>
     `).join('');
 }
 
-function renderEducation(education) {
+function renderEducation(education, lang) {
     const container = document.getElementById('education-container');
+    const labels = {
+        degree: { en: 'BSc in Computer Science & Engineering', bn: 'কম্পিউটার সায়েন্স এন্ড ইঞ্জিনিয়ারিং বিএসসি' }
+    };
+
     container.innerHTML = `
         <div class="education-icon">🎓</div>
         <div class="education-content">
-            <h3>${education.degree}</h3>
+            <h3>${labels.degree[lang]}</h3>
             <p>${education.institution} <span class="education-year">[${education.year}]</span></p>
         </div>
     `;
 }
 
-function renderCertifications(certifications) {
+function renderCertifications(certifications, lang) {
     const container = document.getElementById('cert-container');
     container.innerHTML = certifications.map(cert => `
         <div class="cert-card">
@@ -308,8 +383,15 @@ function renderCertifications(certifications) {
     `).join('');
 }
 
-function renderInterests(interests) {
+function renderInterests(interests, lang) {
     const container = document.getElementById('interests-container');
+    const interestLabels = {
+        'Competitive Programming': { en: 'Competitive Programming', bn: 'প্রতিযোগিতামূলক প্রোগ্রামিং' },
+        'Machine Learning': { en: 'Machine Learning', bn: 'মেশিন লার্নিং' },
+        'MicroController': { en: 'MicroController', bn: 'মাইক্রোকন্ট্রোলার' },
+        'Walking': { en: 'Walking', bn: 'হাঁটাহাঁটি' }
+    };
+
     const emojis = {
         'Competitive Programming': '💻',
         'Machine Learning': '🤖',
@@ -320,12 +402,12 @@ function renderInterests(interests) {
     container.innerHTML = interests.map(interest => `
         <span class="interest-tag">
             <span>${emojis[interest] || '•'}</span>
-            ${interest}
+            ${interestLabels[interest] ? interestLabels[interest][lang] : interest}
         </span>
     `).join('');
 }
 
-function renderAwards(awards) {
+function renderAwards(awards, lang) {
     const container = document.getElementById('awards-container');
     const rankClasses = {
         '1st': 'gold',
@@ -334,9 +416,16 @@ function renderAwards(awards) {
         '4th': ''
     };
 
+    const rankLabels = {
+        '1st': { en: '1st', bn: '১ম' },
+        '2nd': { en: '2nd', bn: '২য়' },
+        '3rd': { en: '3rd', bn: '৩য়' },
+        '4th': { en: '4th', bn: '৪র্থ' }
+    };
+
     container.innerHTML = awards.map(award => `
         <div class="award-card">
-            <div class="award-rank ${rankClasses[award.rank] || ''}">${award.rank}</div>
+            <div class="award-rank ${rankClasses[award.rank] || ''}">${rankLabels[award.rank] ? rankLabels[award.rank][lang] : award.rank}</div>
             <div class="award-content">
                 <h3>${award.title}</h3>
                 <p>${award.event} <span class="award-year">${award.year}</span></p>
@@ -345,20 +434,26 @@ function renderAwards(awards) {
     `).join('');
 }
 
-function renderLeetCode(leetcode) {
+function renderLeetCode(leetcode, lang) {
     const container = document.getElementById('leetcode-container');
+    const labels = {
+        solved: { en: 'Problems Solved', bn: 'সমাধানকৃত সমস্যা' },
+        since: { en: 'Active Since', bn: 'সক্রিয় desde' },
+        viewProfile: { en: 'View Profile →', bn: 'প্রোফাইল দেখুন →' }
+    };
+
     container.innerHTML = `
         <div class="leetcode-stats">
             <div class="leetcode-stat">
                 <div class="leetcode-number">${leetcode.solved}</div>
-                <div class="leetcode-label">Problems Solved</div>
+                <div class="leetcode-label">${labels.solved[lang]}</div>
             </div>
             <div class="leetcode-stat">
                 <div class="leetcode-number">${leetcode.since}</div>
-                <div class="leetcode-label">Active Since</div>
+                <div class="leetcode-label">${labels.since[lang]}</div>
             </div>
         </div>
-        <a href="${leetcode.url}" class="leetcode-link" target="_blank" rel="noopener">View Profile →</a>
+        <a href="${leetcode.url}" class="leetcode-link" target="_blank" rel="noopener">${labels.viewProfile[lang]}</a>
     `;
 }
 
