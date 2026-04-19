@@ -1,0 +1,405 @@
+{
+    "personal": {
+        "name": "Towhid",
+        "location": "Rayerbag, Dhaka - 1236",
+        "role": "Senior Software Engineer",
+        "bio": [
+            "Software Engineer with 10+ years of experience in Flutter(4+), Android Native (4+) and Django(2+).",
+            "Utilizes strong Data Structures & Algorithms skills to design and deliver elegant solutions for complex mobile applications.",
+            "A lifelong learner passionate about contributing and excelling in a fast-paced environment."
+        ],
+        "email": "bt.towhid@gmail.com",
+        "phone": "(+880) 1913-651282",
+        "stats": [
+            {
+                "value": "10+",
+                "label": "Years Experience"
+            },
+            {
+                "value": "4+",
+                "label": "Years Flutter"
+            },
+            {
+                "value": "2+",
+                "label": "Years Django"
+            }
+        ],
+        "social": {
+            "linkedin": {
+                "label": "LinkedIn",
+                "url": "https://linkedin.com/in/itsTowhid",
+                "handle": "itsTowhid"
+            },
+            "github": {
+                "label": "GitHub",
+                "url": "https://github.com/itsTowhid",
+                "handle": "itsTowhid"
+            },
+            "stackoverflow": {
+                "label": "Stack Overflow",
+                "url": "https://stackoverflow.com/users/Towhid",
+                "handle": "Towhid"
+            },
+            "leetcode": {
+                "label": "LeetCode",
+                "url": "https://leetcode.com/itsTowhid",
+                "handle": "itsTowhid"
+            }
+        }
+    },
+    "projects": [
+        {
+            "title": "HishabX",
+            "description": "Small business accounting app simplifies finances with easy expense tracking, customer management, & cloud-based synchronization.",
+            "featured": true,
+            "badge": "Production",
+            "links": [
+                {
+                    "label": "View Project",
+                    "url": "#"
+                }
+            ]
+        },
+        {
+            "title": "UTF Mall",
+            "description": "Users can browse shops, offers, and more before going to the mall. A comprehensive shopping companion app.",
+            "featured": true,
+            "badge": "Production",
+            "links": [
+                {
+                    "label": "View Project",
+                    "url": "#"
+                }
+            ]
+        },
+        {
+            "title": "Adobe XD Plugin",
+            "description": "Generate dart code from custom-drawn shapes in Adobe XD. Streamlines the design-to-development workflow.",
+            "featured": false,
+            "badge": "Open Source",
+            "links": [
+                {
+                    "label": "GitHub",
+                    "url": "#"
+                }
+            ]
+        },
+        {
+            "title": "Animated Counter Widget",
+            "description": "Animated Counter Widget inspired by modern UI patterns. A customizable Flutter package for beautiful counting animations.",
+            "featured": false,
+            "badge": "Open Source",
+            "links": [
+                {
+                    "label": "GitHub",
+                    "url": "#"
+                }
+            ]
+        }
+    ],
+    "resume": {
+        "intro": "I'm a highly skilled Mobile Engineer with more than 8 years of experience in building cross-platform and native mobile applications. On this page, you can learn more about my knowledge stack and my previous work experience.",
+        "downloadUrl": "#",
+        "skillsIntro": "Here are the frameworks, libraries, services and languages I have experience with. This is not a complete list! I'm constantly gaining new skills, and hence it can be a little bit outdated.",
+        "skills": [
+            {
+                "name": "Dart",
+                "icon": "dart",
+                "category": "languages"
+            },
+            {
+                "name": "Python",
+                "icon": "python",
+                "category": "languages"
+            },
+            {
+                "name": "Kotlin",
+                "icon": "kotlin",
+                "category": "languages"
+            },
+            {
+                "name": "Java",
+                "icon": "java",
+                "category": "languages"
+            },
+            {
+                "name": "Swift",
+                "icon": "swift",
+                "category": "languages"
+            },
+            {
+                "name": "C",
+                "icon": "c",
+                "category": "languages"
+            },
+            {
+                "name": "Flutter",
+                "icon": "flutter",
+                "category": "flutter"
+            },
+            {
+                "name": "BLoC",
+                "icon": "bloc",
+                "category": "flutter"
+            },
+            {
+                "name": "Riverpod",
+                "icon": "riverpod",
+                "category": "flutter"
+            },
+            {
+                "name": "GetX",
+                "icon": "getx",
+                "category": "flutter"
+            },
+            {
+                "name": "Provider",
+                "icon": "provider",
+                "category": "flutter"
+            },
+            {
+                "name": "Rive",
+                "icon": "rive",
+                "category": "flutter"
+            },
+            {
+                "name": "RxDart",
+                "icon": "rxdart",
+                "category": "flutter"
+            },
+            {
+                "name": "FlutterGen",
+                "icon": "fluttergen",
+                "category": "flutter"
+            },
+            {
+                "name": "AutoRoute",
+                "icon": "autoroute",
+                "category": "flutter"
+            },
+            {
+                "name": "GetIt",
+                "icon": "getit",
+                "category": "flutter"
+            },
+            {
+                "name": "Platform Channel",
+                "icon": "platformchannel",
+                "category": "flutter"
+            },
+            {
+                "name": "MVVM",
+                "icon": "mvvm",
+                "category": "android"
+            },
+            {
+                "name": "MVI",
+                "icon": "mvi",
+                "category": "android"
+            },
+            {
+                "name": "JetPack Components",
+                "icon": "jetpack",
+                "category": "android"
+            },
+            {
+                "name": "HILT",
+                "icon": "hilt",
+                "category": "android"
+            },
+            {
+                "name": "SOLID",
+                "icon": "solid",
+                "category": "architecture"
+            },
+            {
+                "name": "TDD",
+                "icon": "tdd",
+                "category": "architecture"
+            },
+            {
+                "name": "Design Patterns",
+                "icon": "designpatterns",
+                "category": "architecture"
+            },
+            {
+                "name": "Clean Architecture",
+                "icon": "cleanarchitecture",
+                "category": "architecture"
+            },
+            {
+                "name": "Firebase",
+                "icon": "firebase",
+                "category": "other"
+            },
+            {
+                "name": "Git",
+                "icon": "git",
+                "category": "other"
+            },
+            {
+                "name": "Socket",
+                "icon": "socket",
+                "category": "other"
+            },
+            {
+                "name": "WebRTC",
+                "icon": "webrtc",
+                "category": "other"
+            },
+            {
+                "name": "Google Maps",
+                "icon": "googlemaps",
+                "category": "other"
+            },
+            {
+                "name": "Lottie",
+                "icon": "lottie",
+                "category": "other"
+            },
+            {
+                "name": "Django",
+                "icon": "django",
+                "category": "other"
+            },
+            {
+                "name": "DRF",
+                "icon": "drf",
+                "category": "other"
+            }
+        ],
+        "workIntro": "Below you will find a summary of my past employment experience. Additionally, if you require, you can",
+        "experience": [
+            {
+                "title": "Sr. Software Engineer — Mobile",
+                "company": "MetLife Bangladesh",
+                "location": "Bangladesh",
+                "flag": "🇧🇩",
+                "type": "Contractual",
+                "startDate": "January 2023",
+                "endDate": "March 2024",
+                "current": false,
+                "duties": [
+                    "Managed the 360Health mobile team, overseeing the successful development and launch of a comprehensive app catering to millions of users.",
+                    "Ensured seamless functionality and customer satisfaction throughout the app lifecycle."
+                ]
+            },
+            {
+                "title": "Sr. Software Engineer",
+                "company": "Telenor Health",
+                "location": "Bangladesh",
+                "flag": "🇧🇩",
+                "type": "Contractual",
+                "startDate": "July 2021",
+                "endDate": "January 2023",
+                "current": false,
+                "duties": [
+                    "Led the development and launch of a Grameen digital health app.",
+                    "Oversaw feature development, bug fixes, and seamless functionality.",
+                    "Prioritized user satisfaction throughout the deployment process."
+                ]
+            },
+            {
+                "title": "Software Engineer",
+                "company": "Shohoz",
+                "location": "Bangladesh",
+                "flag": "🇧🇩",
+                "type": "Full-Time",
+                "startDate": "June 2019",
+                "endDate": "July 2021",
+                "current": false,
+                "duties": [
+                    "Tackled technical challenges and delivered impactful features.",
+                    "Successfully resolved countless bugs and implemented key functionalities like Driver Doctor (problem detection & fixes)."
+                ]
+            },
+            {
+                "title": "Software Engineer",
+                "company": "Venture Solutions & Landknock",
+                "location": "Bangladesh",
+                "flag": "🇧🇩",
+                "type": "Full-Time",
+                "startDate": "October 2018",
+                "endDate": "May 2019",
+                "current": false,
+                "duties": [
+                    "Developed and maintained an Agent tracking-based application.",
+                    "Worked on location tracking and real-time data synchronization features."
+                ]
+            },
+            {
+                "title": "Jr. Software Engineer",
+                "company": "ST Solutions",
+                "location": "Bangladesh",
+                "flag": "🇧🇩",
+                "type": "Full-Time",
+                "startDate": "January 2017",
+                "endDate": "September 2018",
+                "current": false,
+                "duties": [
+                    "Designed & developed apps for different platforms including Desktop App (Nippon Paint) and Android & iOS app (Regent)."
+                ]
+            }
+        ]
+    },
+    "education": {
+        "degree": "BSc in Computer Science & Engineering",
+        "institution": "Northern University Bangladesh (NUB)",
+        "year": "2015"
+    },
+    "certifications": [
+        {
+            "title": "Machine Learning & Data Science",
+            "institution": "Divine IT",
+            "year": "2019"
+        },
+        {
+            "title": "Mobile App Development (Android)",
+            "institution": "BASIS - BITM",
+            "year": "2016"
+        }
+    ],
+    "interests": [
+        "Competitive Programming",
+        "Machine Learning",
+        "MicroController",
+        "Walking"
+    ],
+    "awards": [
+        {
+            "title": "Secret Treasure - Game",
+            "event": "EATL App Development Contest",
+            "year": "2014",
+            "rank": "1st"
+        },
+        {
+            "title": "Fill Cart - FB Game",
+            "event": "EATL App Development Contest",
+            "year": "2014",
+            "rank": "1st"
+        },
+        {
+            "title": "Hajj Wizard - App",
+            "event": "EATL App Development Contest",
+            "year": "2014",
+            "rank": "4th"
+        },
+        {
+            "title": "My Salat - Firefox App",
+            "event": "Firefox OS App Challenge",
+            "year": "2015",
+            "rank": "1st"
+        }
+    ],
+    "leetcode": {
+        "solved": "1000+",
+        "since": "2022",
+        "url": "https://leetcode.com/itsTowhid"
+    },
+    "contact": {
+        "backup": {
+            "label": "DM me on LinkedIn",
+            "url": "https://linkedin.com/in/itsTowhid"
+        }
+    }
+}
