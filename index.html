@@ -33,6 +33,10 @@
             <a href="#work" class="nav-link" data-en="WORK" data-bn="কাজ">WORK</a>
         </div>
         <div class="nav-actions">
+            <select id="anim-type-select" class="anim-select">
+                <option value="flowfield" data-en="Flowfield" data-bn="ফ্লোফিল্ড">Flowfield</option>
+                <option value="matrix" data-en="Matrix Rain" data-bn="ম্যাট্রিক্স রেইন">Matrix Rain</option>
+            </select>
             <button class="anim-toggle" id="anim-toggle" aria-label="Toggle animation">
                 <svg class="anim-on-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                     <path
@@ -233,7 +237,9 @@
         </div>
     </footer>
 
-    <script src="flowfield.js"></script>
+    <script src="animations.js"></script>
+    <script src="animations/flowfield.js"></script>
+    <script src="animations/matrix.js"></script>
     <script src="app.js"></script>
 </body>
 

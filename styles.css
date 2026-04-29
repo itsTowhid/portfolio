@@ -274,6 +274,38 @@ body {
     color: var(--accent);
 }
 
+.anim-select {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+    outline: none;
+    display: none;
+}
+
+.anim-select.anim-active {
+    display: block;
+    background: rgba(245, 158, 11, 0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.anim-select:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.anim-select option {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
 .anim-toggle {
     background: none;
     border: 1px solid var(--border);
