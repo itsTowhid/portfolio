@@ -16,16 +16,46 @@
             "en": "Towhid - Software Engineer",
             "bn": "তৌহিদ - সফটওয়্যার ইঞ্জিনিয়ার"
         },
+        "greeting": {
+            "en": "Hey there! 👋",
+            "bn": "হ্যালো! 👋"
+        },
+        "intro_line": {
+            "en": "A software engineer who loves turning ideas into apps people actually enjoy using.",
+            "bn": "একজন সফটওয়্যার ইঞ্জিনিয়ার যিনি আইডিয়াকে এমন অ্যাপে রূপ দিতে ভালোবাসেন যেগুলো মানুষ সত্যিই ব্যবহার করে আনন্দ পায়।"
+        },
         "bio": {
             "en": [
-                "Software Engineer with 10+ years of experience in Flutter(4+), Android Native (4+) and Django(2+).",
-                "Utilizes strong Data Structures & Algorithms skills to design and deliver elegant solutions for complex mobile applications.",
-                "A lifelong learner passionate about contributing and excelling in a fast-paced environment."
+                "I've been building things for over a decade now — started with Android, fell in love with Flutter, and even got my hands dirty with Django along the way.",
+                "I'm that person who genuinely gets excited about clean architecture and a well-structured codebase. Nerdy? Maybe. But it makes everything better, trust me.",
+                "When I'm not coding, you'll probably find me solving problems on LeetCode or exploring something new. I just love learning — always have, always will."
             ],
             "bn": [
-                "ফ্লাটার (৪+ বছর), অ্যান্ড্রয়েড নেটিভ (৪ বছর) এবং জাঙ্গো (২+ বছর) এ ১০+ বছরের অভিজ্ঞতা সম্পন্ন সফটওয়্যার ইঞ্জিনিয়ার।",
-                "জটিল মোবাইল অ্যাপ্লিকেশনের জন্য সুদৃশ্য সমাধান ডিজাইন এবং ডেলিভার করতে শক্তিশালী ডেটা স্ট্রাকচার ও অ্যালগরিদম দক্ষতা ব্যবহার করেন।",
-                "দ্রুতগতির পরিবেশে অবদান রাখতে এবং উৎকর্ষতা অর্জনে আগ্রহী একজন আজীবন শিক্ষার্থী।"
+                "আমি এখন এক দশকেরও বেশি সময় ধরে জিনিস তৈরি করছি — অ্যান্ড্রয়েড দিয়ে শুরু করেছিলাম, ফ্লাটারের প্রেমে পড়ে গেলাম, আর পথে জাঙ্গোতেও হাত পাকিয়েছি।",
+                "আমি সেই মানুষ যে ক্লিন আর্কিটেকচার আর সুন্দর কোডবেস দেখে সত্যিই উত্তেজিত হয়ে যায়। নার্ডি? হয়তো। কিন্তু এটা সবকিছু আরও ভালো করে, বিশ্বাস করুন।",
+                "যখন কোডিং করছি না, তখন সম্ভবত আমাকে LeetCode-এ সমস্যা সমাধান করতে বা নতুন কিছু শিখতে দেখবেন। শেখাটা আমার নেশা — সবসময় ছিল, সবসময় থাকবে।"
+            ]
+        },
+        "ideology": {
+            "en": [
+                "I believe software shouldn't just work; it should feel effortless to use and maintain. Clean code and robust architecture are not just buzzwords; they are the foundation of scalable products.",
+                "Every project is an opportunity to learn something new and leave the codebase better than I found it."
+            ],
+            "bn": [
+                "আমি বিশ্বাস করি সফটওয়্যার শুধু কাজ করলেই চলবে না; এটি ব্যবহার এবং মেইনটেইন করাও সহজ হতে হবে। ক্লিন কোড এবং মজবুত আর্কিটেকচার কেবল কথার কথা নয়; এগুলো স্কেলযোগ্য পণ্যের ভিত্তি।",
+                "প্রতিটি প্রজেক্টই নতুন কিছু শেখার এবং কোডবেসকে আগের চেয়ে ভালো অবস্থায় রেখে যাওয়ার একটাই সুযোগ।"
+            ]
+        },
+        "way_of_work": {
+            "en": [
+                "1. Understand the 'Why': Before writing a single line of code, I strive to deeply understand the business problem we are solving.",
+                "2. Design for Change: I architect solutions using SOLID principles and Modular approaches, knowing requirements will inevitably evolve.",
+                "3. Deliver and Iterate: I value shipping working software and refining it through continuous feedback."
+            ],
+            "bn": [
+                "১. 'কেন' বুঝতে পারা: এক লাইন কোড লেখার আগেও, আমি যে ব্যবসায়িক সমস্যাটি সমাধান করছি তা গভীরভাবে বোঝার চেষ্টা করি।",
+                "২. পরিবর্তনের জন্য ডিজাইন: আমি SOLID নীতি এবং মডুলার পদ্ধতি ব্যবহার করে এমন সমাধান ডিজাইন করি, কারণ আমি জানি প্রয়োজনীয়তা অনিবার্যভাবেই পরিবর্তিত হবে।",
+                "৩. ডেলিভার ও ইটারেট: আমি কার্যকর সফটওয়্যার শিপ করা এবং অবিরাম মতামতের মাধ্যমে এটি পরিমার্জন করাকে মূল্য দিই।"
             ]
         },
         "email": "bt.towhid@gmail.com",
@@ -111,6 +141,7 @@
                 "en": "Production",
                 "bn": "প্রোডাকশন"
             },
+            "skills": ["Flutter", "Dart", "Firebase", "Provider", "Cloud Sync"],
             "links": [
                 {
                     "label": {
@@ -136,6 +167,7 @@
                 "en": "Production",
                 "bn": "প্রোডাকশন"
             },
+            "skills": ["Flutter", "Dart", "BLoC", "REST APIs", "State Management"],
             "links": [
                 {
                     "label": {
@@ -158,6 +190,7 @@
                 "en": "Open Source",
                 "bn": "ওপেন সোর্স"
             },
+            "skills": ["JavaScript", "Adobe XD API", "Dart Code Generation", "Plugin Development"],
             "links": [
                 {
                     "label": {
@@ -180,6 +213,7 @@
                 "en": "Open Source",
                 "bn": "ওপেন সোর্স"
             },
+            "skills": ["Flutter", "Dart", "Package Development", "Animation", "Open Source"],
             "links": [
                 {
                     "label": {
@@ -500,6 +534,13 @@
                     "bn": "বর্তমান"
                 },
                 "current": true,
+                "skills": [
+                    "Flutter",
+                    "Dart",
+                    "BLoC",
+                    "Firebase",
+                    "Team Management"
+                ],
                 "duties": {
                     "en": [
                         "Managed the 360Health mobile team, overseeing the successful development and launch of a comprehensive app catering to millions of users.",
@@ -538,6 +579,13 @@
                     "bn": "জানুয়ারি ২০২৩"
                 },
                 "current": false,
+                "skills": [
+                    "Flutter",
+                    "Dart",
+                    "Provider",
+                    "REST APIs",
+                    "Agile"
+                ],
                 "duties": {
                     "en": [
                         "Led the development and launch of a Grameen digital health app.",
@@ -578,6 +626,14 @@
                     "bn": "জুলাই ২০২১"
                 },
                 "current": false,
+                "skills": [
+                    "Kotlin",
+                    "Java",
+                    "MVVM",
+                    "HILT",
+                    "JetPack Components",
+                    "Coroutines"
+                ],
                 "duties": {
                     "en": [
                         "Tackled technical challenges and delivered impactful features.",
@@ -616,6 +672,12 @@
                     "bn": "মে ২০১৯"
                 },
                 "current": false,
+                "skills": [
+                    "Java",
+                    "Google Maps",
+                    "Socket",
+                    "Real-time Data"
+                ],
                 "duties": {
                     "en": [
                         "Developed and maintained an Agent tracking-based application.",
@@ -654,6 +716,15 @@
                     "bn": "সেপ্টেম্বর ২০১৮"
                 },
                 "current": false,
+                "skills": [
+                    "Java",
+                    "Android",
+                    "Swift",
+                    "iOS",
+                    "Python",
+                    "PyQt Framework",
+                    "Desktop Development"
+                ],
                 "duties": {
                     "en": [
                         "Designed & developed apps for different platforms including Desktop App (Nippon Paint) and Android & iOS app (Regent)."

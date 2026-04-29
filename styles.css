@@ -81,6 +81,81 @@
     opacity: 1;
 }
 
+/* Loading Screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loading-screen.loaded {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.loader-logo {
+    font-family: 'Courier New', monospace;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    animation: loaderPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes loaderPulse {
+    0%, 100% { opacity: 0.4; transform: scale(0.95); }
+    50% { opacity: 1; transform: scale(1.05); }
+}
+
+.loader-bar {
+    width: 180px;
+    height: 3px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.loader-bar-inner {
+    width: 40%;
+    height: 100%;
+    background: var(--gradient);
+    border-radius: 3px;
+    animation: loaderSlide 1s ease-in-out infinite;
+}
+
+@keyframes loaderSlide {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(350%); }
+}
+
+/* Content Fade In */
+.main-content,
+.navbar,
+.footer {
+    opacity: 0;
+    transition: opacity 0.6s ease 0.1s;
+}
+
+.content-ready .main-content,
+.content-ready .navbar,
+.content-ready .footer {
+    opacity: 1;
+}
 * {
     margin: 0;
     padding: 0;
@@ -365,12 +440,20 @@ body {
     }
 }
 
+.hero-greeting {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.01em;
+}
+
 .hero-title {
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-weight: 800;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     line-height: 1.1;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
 }
 
 .highlight {
@@ -380,19 +463,78 @@ body {
     background-clip: text;
 }
 
-.hero-role {
-    font-size: 1.25rem;
-    color: var(--accent);
-    font-weight: 600;
-    margin-bottom: 1rem;
+.hero-intro-line {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+    max-width: 620px;
+    font-weight: 400;
 }
 
-.hero-description {
-    color: var(--text-secondary);
-    font-size: 1.125rem;
-    line-height: 1.7;
+.hero-role {
+    font-size: 1rem;
+    color: var(--accent);
+    font-weight: 600;
     margin-bottom: 1.5rem;
-    max-width: 600px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.hero-about-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2rem;
+    max-width: 650px;
+    position: relative;
+    overflow: hidden;
+}
+
+.ideology-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid #10b981; /* different accent color for ideology */
+    border-radius: 0 12px 12px 0;
+    padding: 1.5rem 1.75rem;
+    max-width: 650px;
+}
+
+[data-theme="light"] .hero-about-card {
+    background: #fffbf7;
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.05),
+        0 1px 2px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.hero-about-card::after {
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 100px;
+    height: 100px;
+    background: var(--gradient);
+    opacity: 0.04;
+    border-radius: 50%;
+    filter: blur(20px);
+}
+
+.hero-about-text {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.hero-about-text p {
+    margin-bottom: 0.5rem;
+}
+
+.hero-about-text p:last-child {
+    margin-bottom: 0;
 }
 
 .hero-stats {
@@ -510,15 +652,20 @@ body {
 }
 
 /* Projects */
+#projects-container {
+    display: grid;
+    gap: 1rem;
+}
+
 .project-card {
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    transition: all 0.3s;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
 }
 
 [data-theme="light"] .project-card {
@@ -561,7 +708,35 @@ body {
 }
 
 .project-card:hover::before {
+    opacity: 1;
     transform: scaleX(1);
+}
+
+.project-details {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease-out;
+}
+
+.project-details-inner {
+    overflow: hidden;
+}
+
+.project-card.expanded .project-details {
+    grid-template-rows: 1fr;
+    margin-top: 1rem;
+}
+
+.project-expand-icon {
+    color: var(--text-secondary);
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.project-card.expanded .project-expand-icon {
+    transform: rotate(180deg);
+    color: var(--accent);
 }
 
 .project-header {
@@ -615,6 +790,24 @@ body {
 .external-icon {
     width: 14px;
     height: 14px;
+}
+
+.project-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.project-skill-tag {
+    display: inline-block;
+    padding: 0.25rem 0.625rem;
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 500;
 }
 
 /* Social Links */
@@ -991,6 +1184,24 @@ body {
     position: absolute;
     left: 0;
     color: var(--accent);
+}
+
+.timeline-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.timeline-skill-tag {
+    display: inline-block;
+    padding: 0.25rem 0.625rem;
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 500;
 }
 
 /* Education */
@@ -1459,9 +1670,21 @@ body {
         padding: 1.5rem;
     }
 
+    .hero-greeting {
+        font-size: 1.35rem;
+    }
+
     .hero-title,
     .page-title {
         font-size: 2rem;
+    }
+
+    .hero-intro-line {
+        font-size: 1.05rem;
+    }
+
+    .hero-about-card {
+        padding: 1.25rem 1.25rem;
     }
 
     .hero-stats {

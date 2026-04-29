@@ -12,12 +12,30 @@ async function loadData() {
 
 // Initialize application
 document.addEventListener('DOMContentLoaded', async () => {
+    const loadingScreen = document.getElementById('loading-screen');
+    const isFirstLoad = !sessionStorage.getItem('portfolio-visited');
+
+    // Skip loading screen for internal navigation
+    if (!isFirstLoad) {
+        loadingScreen.classList.add('loaded');
+        document.body.classList.add('content-ready');
+    }
+
     const data = await loadData();
     if (data) {
         initTheme();
         initLanguage();
         renderContent(data);
         initNavigation();
+
+        // Mark as visited and dismiss loader on first load
+        sessionStorage.setItem('portfolio-visited', 'true');
+        if (isFirstLoad) {
+            setTimeout(() => {
+                loadingScreen.classList.add('loaded');
+                document.body.classList.add('content-ready');
+            }, 400);
+        }
     }
 });
 
@@ -81,11 +99,31 @@ function updateDynamicContent(lang) {
     const data = window.portfolioData;
     if (!data) return;
 
+    // Update greeting
+    const greetingEl = document.getElementById('hero-greeting');
+    if (greetingEl && data.personal.greeting && data.personal.greeting[lang]) {
+        greetingEl.textContent = data.personal.greeting[lang];
+    }
+
+    // Update intro line
+    const introLineEl = document.getElementById('hero-intro-line');
+    if (introLineEl && data.personal.intro_line && data.personal.intro_line[lang]) {
+        introLineEl.textContent = data.personal.intro_line[lang];
+    }
+
+    // Update Ideology & Way of Work
+    const ideologyEl = document.getElementById('intro-ideology');
+    if (ideologyEl && data.personal.ideology && data.personal.ideology[lang]) {
+        ideologyEl.innerHTML = data.personal.ideology[lang].map(line => `<p>${line}</p>`).join('');
+    }
+    const wowEl = document.getElementById('intro-way-of-work');
+    if (wowEl && data.personal.way_of_work && data.personal.way_of_work[lang]) {
+        wowEl.innerHTML = data.personal.way_of_work[lang].map(line => `<p>${line}</p>`).join('');
+    }
+
     // Update name
     const nameEl = document.getElementById('hero-name');
-    if (nameEl) {
-        nameEl.textContent = data.personal.name[lang];
-    }
+    if (nameEl) nameEl.textContent = data.personal.name[lang];
 
     // Update role
     const roleEl = document.getElementById('hero-role');
@@ -96,7 +134,7 @@ function updateDynamicContent(lang) {
     // Update bio
     const bioEl = document.getElementById('hero-bio');
     if (bioEl && data.personal.bio[lang]) {
-        bioEl.innerHTML = data.personal.bio[lang].join('<br>');
+        bioEl.innerHTML = data.personal.bio[lang].map(line => `<p>${line}</p>`).join('');
     }
 
     // Update stats
@@ -190,28 +228,60 @@ function renderContent(data) {
     window.portfolioData = data;
     const lang = document.documentElement.getAttribute('data-lang') || 'en';
 
-    // Hero Section
-    document.getElementById('hero-name').textContent = data.personal.name[lang];
-    document.getElementById('hero-role').textContent = data.personal.role[lang];
-    document.getElementById('hero-bio').innerHTML = data.personal.bio[lang].join('<br>');
+    // Hero Section - Greeting
+    const greetingEl = document.getElementById('hero-greeting');
+    if (greetingEl && data.personal.greeting && data.personal.greeting[lang]) {
+        greetingEl.textContent = data.personal.greeting[lang];
+    }
+
+    // Hero Section - Intro line
+    const introLineEl = document.getElementById('hero-intro-line');
+    if (introLineEl && data.personal.intro_line && data.personal.intro_line[lang]) {
+        introLineEl.textContent = data.personal.intro_line[lang];
+    }
+
+    // Update Ideology & Way of Work
+    const ideologyEl = document.getElementById('intro-ideology');
+    if (ideologyEl && data.personal.ideology && data.personal.ideology[lang]) {
+        ideologyEl.innerHTML = data.personal.ideology[lang].map(line => `<p>${line}</p>`).join('');
+    }
+    const wowEl = document.getElementById('intro-way-of-work');
+    if (wowEl && data.personal.way_of_work && data.personal.way_of_work[lang]) {
+        wowEl.innerHTML = data.personal.way_of_work[lang].map(line => `<p>${line}</p>`).join('');
+    }
+
+    const heroNameEl = document.getElementById('hero-name');
+    if (heroNameEl) heroNameEl.textContent = data.personal.name[lang];
+    
+    const heroRoleEl = document.getElementById('hero-role');
+    if (heroRoleEl) heroRoleEl.textContent = data.personal.role[lang];
+    
+    const heroBioEl = document.getElementById('hero-bio');
+    if (heroBioEl) heroBioEl.innerHTML = data.personal.bio[lang].map(line => `<p>${line}</p>`).join('');
 
     // Hero stats
     const statsContainer = document.getElementById('hero-stats');
-    statsContainer.innerHTML = data.personal.stats.map(stat => `
-        <div class="stat-item">
-            <span class="stat-number">${stat.value[lang]}</span>
-            <span class="stat-label">${stat.label[lang]}</span>
-        </div>
-    `).join('');
+    if (statsContainer) {
+        statsContainer.innerHTML = data.personal.stats.map(stat => `
+            <div class="stat-item">
+                <span class="stat-number">${stat.value[lang]}</span>
+                <span class="stat-label">${stat.label[lang]}</span>
+            </div>
+        `).join('');
+    }
 
     // Contact email - only show as hyperlink, not text
     const emailLink = document.getElementById('contact-email');
-    emailLink.href = `mailto:${data.personal.email}`;
-    emailLink.textContent = lang === 'bn' ? 'ইমেইল পাঠান' : 'Send Email';
+    if (emailLink) {
+        emailLink.href = `mailto:${data.personal.email}`;
+        emailLink.textContent = lang === 'bn' ? 'ইমেইল পাঠান' : 'Send Email';
+    }
 
     const emailLinkPage = document.getElementById('contact-email-page');
-    emailLinkPage.href = `mailto:${data.personal.email}`;
-    emailLinkPage.textContent = lang === 'bn' ? 'ইমেইল পাঠান' : 'Send Email';
+    if (emailLinkPage) {
+        emailLinkPage.href = `mailto:${data.personal.email}`;
+        emailLinkPage.textContent = lang === 'bn' ? 'ইমেইল পাঠান' : 'Send Email';
+    }
 
     // Contact backup
     const backupLink = document.getElementById('contact-backup');
@@ -221,7 +291,8 @@ function renderContent(data) {
     }
 
     // Footer name
-    document.getElementById('footer-name').textContent = data.personal.name[lang];
+    const footerNameEl = document.getElementById('footer-name');
+    if (footerNameEl) footerNameEl.textContent = data.personal.name[lang];
 
     // Navbar name
     const navName = document.getElementById('nav-name');
@@ -250,10 +321,15 @@ function renderContent(data) {
     renderContactSocialLinks(data.personal.social, lang);
 
     // Resume
-    document.getElementById('resume-intro').textContent = data.resume.intro[lang];
-    document.getElementById('skills-intro').textContent = data.resume.skillsIntro[lang];
-    const downloadText = lang === 'bn' ? 'আমার জীবনবৃত্তান্ত ডাউনলোড করুন 📄' : 'download my resume 📄';
-    document.getElementById('work-intro').innerHTML = `${data.resume.workIntro[lang]} <a href="${data.resume.downloadUrl}" class="link-highlight">${downloadText}</a>`;
+    const resumeIntro = document.getElementById('resume-intro');
+    if (resumeIntro) resumeIntro.textContent = data.resume.intro[lang];
+    const skillsIntro = document.getElementById('skills-intro');
+    if (skillsIntro) skillsIntro.textContent = data.resume.skillsIntro[lang];
+    const workIntro = document.getElementById('work-intro');
+    if (workIntro) {
+        const downloadText = lang === 'bn' ? 'আমার জীবনবৃত্তান্ত ডাউনলোড করুন 📄' : 'download my resume 📄';
+        workIntro.innerHTML = `${data.resume.workIntro[lang]} <a href="${data.resume.downloadUrl}" class="link-highlight">${downloadText}</a>`;
+    }
 
     // Skills with categories
     renderSkills(data.resume.skills, lang);
@@ -279,6 +355,7 @@ function renderContent(data) {
 
 function renderCurrentPosition(experience, lang) {
     const container = document.getElementById('current-position');
+    if (!container) return;
 
     // Find the current or most recent position
     const currentPosition = experience.find(job => job.current) || experience[0];
@@ -335,33 +412,51 @@ function renderCurrentPosition(experience, lang) {
 
 function renderProjects(projects, lang) {
     const container = document.getElementById('projects-container');
+    if (!container) return;
 
     container.innerHTML = projects.map(project => {
         const title = typeof project.title === 'object' ? project.title[lang] : project.title;
         const badge = typeof project.badge === 'object' ? project.badge[lang] : project.badge;
         const description = typeof project.description === 'object' ? project.description[lang] : project.description;
+        const skills = project.skills || [];
 
         return `
         <div class="project-card">
             <div class="project-header">
-                <h3 class="project-title">${title}</h3>
-                ${badge ? `<span class="project-badge">${badge}</span>` : ''}
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <h3 class="project-title">${title}</h3>
+                    ${badge ? `<span class="project-badge">${badge}</span>` : ''}
+                </div>
+                <div class="project-expand-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
             </div>
-            <p class="project-description">${description}</p>
-            <div class="project-links">
-                ${project.links.map(link => {
+            <div class="project-details">
+                <div class="project-details-inner">
+                    <p class="project-description">${description}</p>
+                    ${skills.length > 0 ? `
+                        <div class="project-skills">
+                            ${skills.map(skill => `<span class="project-skill-tag">${skill}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                    <div class="project-links">
+                        ${project.links.map(link => {
             const label = typeof link.label === 'object' ? link.label[lang] : link.label;
             return `
-                    <a href="${link.url}" class="project-link" target="_blank" rel="noopener">
-                        ${label}
-                        <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                            <polyline points="15 3 21 3 21 9"/>
-                            <line x1="10" y1="14" x2="21" y2="3"/>
-                        </svg>
-                    </a>
-                    `;
+                        <a href="${link.url}" class="project-link" target="_blank" rel="noopener">
+                            ${label}
+                            <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                <polyline points="15 3 21 3 21 9"/>
+                                <line x1="10" y1="14" x2="21" y2="3"/>
+                            </svg>
+                        </a>
+                        `;
         }).join('')}
+                    </div>
+                </div>
             </div>
         </div>
         `;
@@ -370,6 +465,8 @@ function renderProjects(projects, lang) {
 
 function renderSocialLinks(social, lang) {
     const container = document.getElementById('social-links');
+    if (!container) return;
+
     const icons = {
         linkedin: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>',
         github: '<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>',
@@ -416,6 +513,7 @@ function renderContactSocialLinks(social, lang) {
 
 function renderSkills(skills, lang) {
     const container = document.getElementById('skills-categories');
+    if (!container) return;
 
     const categoryNames = {
         languages: { en: 'Languages', bn: 'ভাষা' },
@@ -487,13 +585,18 @@ function renderSkills(skills, lang) {
 
 function renderTimeline(experience, lang) {
     const container = document.getElementById('work-timeline');
+    if (!container) return;
+
+    // Use spread to avoid mutating original - keep current job first
+    const growthTimeline = [...experience];
+
     const currentLabel = lang === 'bn' ? 'বর্তমান' : 'Current';
     const typeLabels = {
         'Contractual': { en: 'Contractual', bn: 'চুক্তিভিত্তিক' },
         'Full-Time': { en: 'Full-Time', bn: 'পূর্ণকালীন' }
     };
 
-    container.innerHTML = experience.map(job => {
+    container.innerHTML = growthTimeline.map((job) => {
         const title = typeof job.title === 'object' ? job.title[lang] : job.title;
         const company = typeof job.company === 'object' ? job.company[lang] : job.company;
         const location = typeof job.location === 'object' ? job.location[lang] : job.location;
@@ -501,6 +604,7 @@ function renderTimeline(experience, lang) {
         const startDate = typeof job.startDate === 'object' ? job.startDate[lang] : job.startDate;
         const endDate = typeof job.endDate === 'object' ? job.endDate[lang] : job.endDate;
         const duties = typeof job.duties === 'object' ? job.duties[lang] : job.duties;
+        const skills = job.skills || [];
 
         return `
         <div class="timeline-item">
@@ -519,6 +623,11 @@ function renderTimeline(experience, lang) {
             <ul class="timeline-duties">
                 ${duties.map(duty => `<li>${duty}</li>`).join('')}
             </ul>
+            ${skills.length > 0 ? `
+                <div class="timeline-skills">
+                    ${skills.map(skill => `<span class="timeline-skill-tag">${skill}</span>`).join('')}
+                </div>
+            ` : ''}
         </div>
         `;
     }).join('');
@@ -526,6 +635,7 @@ function renderTimeline(experience, lang) {
 
 function renderEducation(education, lang) {
     const container = document.getElementById('education-container');
+    if (!container) return;
 
     const degree = typeof education.degree === 'object' ? education.degree[lang] : education.degree;
     const institution = typeof education.institution === 'object' ? education.institution[lang] : education.institution;
@@ -542,6 +652,8 @@ function renderEducation(education, lang) {
 
 function renderCertifications(certifications, lang) {
     const container = document.getElementById('cert-container');
+    if (!container) return;
+
     container.innerHTML = certifications.map(cert => {
         const title = typeof cert.title === 'object' ? cert.title[lang] : cert.title;
         const institution = typeof cert.institution === 'object' ? cert.institution[lang] : cert.institution;
@@ -561,6 +673,7 @@ function renderCertifications(certifications, lang) {
 
 function renderInterests(interests, lang) {
     const container = document.getElementById('interests-container');
+    if (!container) return;
 
     const emojis = {
         'Competitive Programming': '💻',
@@ -588,6 +701,8 @@ function renderInterests(interests, lang) {
 
 function renderAwards(awards, lang) {
     const container = document.getElementById('awards-container');
+    if (!container) return;
+
     const rankClasses = {
         '1st': 'gold',
         '2nd': 'silver',
@@ -622,6 +737,8 @@ function renderAwards(awards, lang) {
 
 function renderLeetCode(leetcode, lang) {
     const container = document.getElementById('leetcode-container');
+    if (!container) return;
+
     const labels = {
         solved: { en: 'Problems Solved', bn: 'সমাধানকৃত সমস্যা' },
         since: { en: 'Active Since', bn: 'সক্রিয়' },
@@ -650,46 +767,52 @@ function renderLeetCode(leetcode, lang) {
 function initNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
+    const footerLinks = document.querySelectorAll('.footer-link');
 
-    navLinks.forEach(link => {
+    const switchSection = (targetId) => {
+        // Remove active class from all links and sections
+        navLinks.forEach(l => l.classList.remove('active'));
+        footerLinks.forEach(l => l.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('active'));
+
+        // Add active class to target section
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+            targetSection.classList.add('active');
+        }
+
+        // Add active class to corresponding nav link
+        navLinks.forEach(l => {
+            if (l.getAttribute('href') === `#${targetId}`) {
+                l.classList.add('active');
+            }
+        });
+
+        window.scrollTo(0, 0);
+    };
+
+    [...navLinks, ...footerLinks].forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href').substring(1);
-
-            navLinks.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
-
-            sections.forEach(section => {
-                section.classList.remove('active');
-                if (section.id === targetId) {
-                    section.classList.add('active');
-                }
-            });
-
-            window.scrollTo(0, 0);
+            const href = link.getAttribute('href');
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const targetId = href.substring(1);
+                switchSection(targetId);
+                // Update URL hash without reload
+                history.pushState(null, null, `#${targetId}`);
+            }
         });
     });
 
-    document.querySelectorAll('.footer-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href').substring(1) || 'resume';
+    // Handle initial hash or default to intro
+    const initialHash = window.location.hash.substring(1) || 'intro';
+    switchSection(initialHash);
 
-            navLinks.forEach(l => {
-                l.classList.remove('active');
-                if (l.getAttribute('href') === `#${targetId}`) {
-                    l.classList.add('active');
-                }
-            });
-
-            sections.forEach(section => {
-                section.classList.remove('active');
-                if (section.id === targetId) {
-                    section.classList.add('active');
-                }
-            });
-
-            window.scrollTo(0, 0);
+    // Expandable content for projects
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
+        card.addEventListener('click', () => {
+            card.classList.toggle('expanded');
         });
     });
 }

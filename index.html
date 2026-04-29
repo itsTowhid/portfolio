@@ -12,29 +12,35 @@
 </head>
 
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loader-content">
+            <span class="loader-logo">&lt;/&gt;</span>
+            <div class="loader-bar">
+                <div class="loader-bar-inner"></div>
+            </div>
+        </div>
+    </div>
+
     <canvas id="flowfield-canvas"></canvas>
     <nav class="navbar">
         <div class="nav-brand">
             <span class="logo">&lt;/&gt;</span><span class="logo-text" id="nav-name">Towhid</span>
         </div>
         <div class="nav-links">
-            <a href="#home" class="nav-link active" data-section="home" data-en="HOME" data-bn="হোম">HOME</a>
-            <a href="#resume" class="nav-link" data-section="resume" data-en="RESUME" data-bn="জীবনবৃত্তান্ত">RESUME</a>
-            <a href="#projects" class="nav-link" data-section="projects" data-en="PROJECTS"
-                data-bn="প্রজেক্টস">PROJECTS</a>
-            <a href="#awards" class="nav-link" data-section="awards" data-en="AWARDS" data-bn="পুরস্কার">AWARDS</a>
-            <a href="#contact" class="nav-link" data-section="contact" data-en="CONTACT" data-bn="যোগাযোগ">CONTACT</a>
+            <a href="#intro" class="nav-link active" data-en="INTRO" data-bn="ভূমিকা">INTRO</a>
+            <a href="#story" class="nav-link" data-en="STORY" data-bn="গল্প">STORY</a>
+            <a href="#work" class="nav-link" data-en="WORK" data-bn="কাজ">WORK</a>
         </div>
         <div class="nav-actions">
-            <button class="lang-toggle" id="lang-toggle" aria-label="Toggle language">
-                <span class="lang-text">EN</span>
-            </button>
             <button class="anim-toggle" id="anim-toggle" aria-label="Toggle animation">
                 <svg class="anim-on-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" />
                 </svg>
                 <svg class="anim-off-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" />
                 </svg>
             </button>
             <div class="nav-social">
@@ -72,24 +78,35 @@
                     </svg>
                 </button>
             </div>
+            <button class="lang-toggle" id="lang-toggle" aria-label="Toggle language">
+                <span class="lang-text">EN</span>
+            </button>
         </div>
     </nav>
 
     <main class="main-content">
-        <!-- Home/Hero Section -->
-        <section id="home" class="section active">
+        <!-- Intro Section -->
+        <section id="intro" class="section active">
             <div class="container">
                 <div class="hero-badge">
                     <span class="badge" data-en="Available for hire" data-bn="চাকরির জন্য প্রস্তুত">Available for
                         hire</span>
                 </div>
+
+                <p class="hero-greeting" id="hero-greeting"></p>
                 <h1 class="hero-title">
-                    <span data-en="Hey, I'm" data-bn="হ্যালো, আমি">Hey, I'm</span>
-                    <span class="highlight" id="hero-name"></span>!
+                    <span data-en="I'm" data-bn="আমি">I'm</span>
+                    <span class="highlight" id="hero-name"></span>
                 </h1>
+                <p class="hero-intro-line" id="hero-intro-line"></p>
                 <p class="hero-role" id="hero-role"></p>
-                <p class="hero-description" id="hero-bio"></p>
+
+                <div class="hero-about-card">
+                    <div class="hero-about-text" id="hero-bio"></div>
+                </div>
+
                 <div class="hero-stats" id="hero-stats"></div>
+
                 <div class="squiggle">
                     <svg width="120" height="20" viewBox="0 0 120 20" fill="none">
                         <path class="squiggle-path" d="M0 10 Q 10 0, 20 10 T 40 10 T 60 10 T 80 10 T 100 10 T 120 10"
@@ -98,30 +115,35 @@
                 </div>
 
                 <div class="section-block">
-                    <h2 class="section-title" data-en="Current Position" data-bn="বর্তমান অবস্থান">Current Position</h2>
+                    <h2 class="section-title" data-en="Ideology" data-bn="আদর্শ">Ideology</h2>
+                    <div class="ideology-card">
+                        <div class="hero-about-text" id="intro-ideology"></div>
+                    </div>
+                </div>
+
+                <div class="section-block">
+                    <h2 class="section-title" data-en="Way of Work" data-bn="কাজের ধরন">Way of Work</h2>
+                    <div class="hero-about-text" id="intro-way-of-work"></div>
+                </div>
+
+                <div class="section-block">
+                    <h2 class="section-title" data-en="Current Focus" data-bn="বর্তমান ফোকাস">Current Focus</h2>
                     <div id="current-position"></div>
                 </div>
 
                 <div class="section-block">
-                    <h3 class="subsection-title" data-en="Find me on" data-bn="আমাকে পাবেন">Find me on</h3>
+                    <h3 class="subsection-title" data-en="Let's connect 🤝" data-bn="চলুন যুক্ত হই 🤝">Let's connect 🤝
+                    </h3>
                     <div class="social-links" id="social-links"></div>
-                </div>
-
-                <div class="section-block">
-                    <h3 class="subsection-title" data-en="Quick Contact" data-bn="দ্রুত যোগাযোগ">Quick Contact</h3>
-                    <p class="contact-text">
-                        <span data-en="Reach me at" data-bn="আমাকে পাবেন">Reach me at</span>
-                        <a href="#" class="email-link" id="contact-email"></a>
-                    </p>
                 </div>
             </div>
         </section>
 
-        <!-- Resume Section -->
-        <section id="resume" class="section">
+        <!-- Story Section -->
+        <section id="story" class="section">
             <div class="container">
                 <div class="resume-header">
-                    <h1 class="page-title" data-en="Resume / CV" data-bn="জীবনবৃত্তান্ত">Resume / CV</h1>
+                    <h1 class="page-title" data-en="My Story" data-bn="আমার গল্প">My Story</h1>
                     <a href="resume.pdf" class="download-resume-btn" download>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2">
@@ -141,66 +163,55 @@
                 </div>
 
                 <div class="section-block">
-                    <h2 class="section-title" data-en="Skills" data-bn="দক্ষতা">Skills</h2>
-                    <p class="skills-intro" id="skills-intro"></p>
-                    <div class="skills-categories" id="skills-categories"></div>
-                </div>
-
-                <div class="section-block">
-                    <h2 class="section-title" data-en="Work History" data-bn="কর্ম অভিজ্ঞতা">Work History</h2>
+                    <h2 class="section-title" data-en="Growth Timeline" data-bn="বৃদ্ধির সময়রেখা">Growth Timeline</h2>
                     <p class="work-intro" id="work-intro"></p>
                     <div class="timeline" id="work-timeline"></div>
                 </div>
 
-                <div class="section-block">
+                <!-- <div class="section-block">
                     <h2 class="section-title" data-en="Education" data-bn="শিক্ষা">Education</h2>
                     <div class="education-card" id="education-container"></div>
-                </div>
+                </div> -->
 
                 <div class="section-block">
                     <h2 class="section-title" data-en="Certifications" data-bn="সার্টিফিকেশন">Certifications</h2>
                     <div class="cert-grid" id="cert-container"></div>
                 </div>
 
+                <!-- <div class="section-block">
+                    <h2 class="section-title" data-en="Skills" data-bn="দক্ষতা">Skills</h2>
+                    <p class="skills-intro" id="skills-intro"></p>
+                    <div class="skills-categories" id="skills-categories"></div>
+                </div> -->
+
+            </div>
+        </section>
+
+        <!-- Work Section -->
+        <section id="work" class="section">
+            <div class="container">
+                <h1 class="page-title" data-en="My Work" data-bn="আমার কাজ">My Work</h1>
+                <p class="page-description"
+                    data-en="A showcase of my technical projects, contributions, and achievements."
+                    data-bn="আমার কারিগরি কাজ, অবদান এবং অর্জনের প্রদর্শনী।">A showcase of my technical projects,
+                    contributions, and achievements.</p>
+                <div class="squiggle">
+                    <svg width="120" height="20" viewBox="0 0 120 20" fill="none">
+                        <path class="squiggle-path" d="M0 10 Q 10 0, 20 10 T 40 10 T 60 10 T 80 10 T 100 10 T 120 10"
+                            stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" />
+                    </svg>
+                </div>
+
                 <div class="section-block">
-                    <h2 class="section-title" data-en="Interests" data-bn="আগ্রহ">Interests</h2>
-                    <div class="interests-container" id="interests-container"></div>
+                    <h2 class="section-title" data-en="Projects" data-bn="প্রজেক্টস">Projects</h2>
+                    <div id="projects-container"></div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="section">
-            <div class="container">
-                <h1 class="page-title" data-en="Projects" data-bn="প্রজেক্টস">Projects</h1>
-                <p class="page-description" data-en="A showcase of my technical work and open source contributions."
-                    data-bn="আমার কারিগরি কাজ এবং ওপেন সোর্স অবদানের প্রদর্শনী।">A showcase of my technical work and
-                    open source contributions.</p>
-                <div class="squiggle">
-                    <svg width="120" height="20" viewBox="0 0 120 20" fill="none">
-                        <path class="squiggle-path" d="M0 10 Q 10 0, 20 10 T 40 10 T 60 10 T 80 10 T 100 10 T 120 10"
-                            stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" />
-                    </svg>
+                <div class="section-block">
+                    <h2 class="section-title" data-en="Contests & Awards" data-bn="প্রতিযোগিতা ও পুরস্কার">Contests &
+                        Awards</h2>
+                    <div class="awards-grid" id="awards-container"></div>
                 </div>
-                <div id="projects-container"></div>
-            </div>
-        </section>
-
-        <!-- Awards Section -->
-        <section id="awards" class="section">
-            <div class="container">
-                <h1 class="page-title" data-en="Contests & Awards" data-bn="প্রতিযোগিতা ও পুরস্কার">Contests & Awards
-                </h1>
-                <p class="page-description" data-en="Recognition and achievements throughout my career."
-                    data-bn="আমার ক্যারিয়ার জুড়ে স্বীকৃতি ও অর্জন।">Recognition and achievements throughout my career.
-                </p>
-                <div class="squiggle">
-                    <svg width="120" height="20" viewBox="0 0 120 20" fill="none">
-                        <path class="squiggle-path" d="M0 10 Q 10 0, 20 10 T 40 10 T 60 10 T 80 10 T 100 10 T 120 10"
-                            stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" />
-                    </svg>
-                </div>
-                <div class="awards-grid" id="awards-container"></div>
 
                 <div class="section-block coding-section">
                     <h2 class="section-title" data-en="Competitive Programming" data-bn="প্রতিযোগিতামূলক প্রোগ্রামিং">
@@ -208,45 +219,6 @@
                     <div class="leetcode-card" id="leetcode-container"></div>
                 </div>
             </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="section">
-            <div class="container">
-                <h1 class="page-title" data-en="Get in touch" data-bn="যোগাযোগ">Get in touch</h1>
-                <p class="page-description" data-en="Do you have an exciting project? Let's talk!"
-                    data-bn="আপনার কি কোনো আকর্ষণীয় প্রজেক্ট আছে? চলুন কথা বলি!">Do you have an exciting project? Let's
-                    talk!</p>
-                <div class="squiggle">
-                    <svg width="120" height="20" viewBox="0 0 120 20" fill="none">
-                        <path class="squiggle-path" d="M0 10 Q 10 0, 20 10 T 40 10 T 60 10 T 80 10 T 100 10 T 120 10"
-                            stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" />
-                    </svg>
-                </div>
-
-                <div class="contact-content">
-                    <p class="contact-line">
-                        <span data-en="You can reach me out anytime at" data-bn="আপনি যেকোনো সময় আমাকে পেতে পারেন">You
-                            can reach me out anytime at</span>
-                        <a href="#" class="email-link" id="contact-email-page"></a>
-                    </p>
-                    <p class="contact-line">
-                        <span data-en="As a backup option, you can" data-bn="বিকল্প হিসেবে, আপনি পারেন">As a backup
-                            option, you can</span>
-                        <a href="#" class="link-highlight" id="contact-backup"></a>
-                    </p>
-                    <p class="contact-note" data-en="I usually respond right away on business days."
-                        data-bn="আমি সাধারণত ব্যবসায়িক দিনগুলোতে তৎক্ষণাৎ উত্তর দেই।">I usually respond right away on
-                        business days.</p>
-                </div>
-
-                <div class="contact-social-section">
-                    <h3 class="subsection-title" data-en="Connect on Social" data-bn="সোশ্যাল মিডিয়ায় যুক্ত হোন">
-                        Connect on Social</h3>
-                    <div class="social-links-large" id="contact-social-links"></div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer class="footer">
@@ -256,8 +228,8 @@
                     id="footer-name"></span></span>
         </div>
         <div class="footer-right">
-            <a href="#resume" class="footer-link" data-en="Tech Stack" data-bn="টেক স্ট্যাক">Tech Stack</a>
-            <a href="#" class="footer-link" data-en="Profiles" data-bn="প্রোফাইল">Profiles</a>
+            <a href="#story" class="footer-link" data-en="My Story" data-bn="আমার গল্প">My Story</a>
+            <a href="#work" class="footer-link" data-en="My Work" data-bn="আমার কাজ">My Work</a>
         </div>
     </footer>
 
