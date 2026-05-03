@@ -35,8 +35,8 @@
         <div class="nav-actions">
             <select id="anim-type-select" class="anim-select">
                 <option value="space" data-en="Starry Space" data-bn="তারাময় মহাকাশ">Starry Space</option>
-                <option value="flowfield" data-en="Flowfield" data-bn="ফ্লোফিল্ড">Flowfield</option>
                 <option value="matrix" data-en="Matrix Rain" data-bn="ম্যাট্রিক্স রেইন">Matrix Rain</option>
+                <option value="flowfield" data-en="Flowfield" data-bn="ফ্লোফিল্ড">Flowfield</option>
             </select>
             <button class="anim-toggle" id="anim-toggle" aria-label="Toggle animation">
                 <svg class="anim-on-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -48,43 +48,19 @@
                         d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" />
                 </svg>
             </button>
-            <div class="nav-social">
-                <a href="https://github.com/itsTowhid" class="social-link" aria-label="GitHub" target="_blank"
-                    rel="noopener">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                    </svg>
-                </a>
-                <a href="https://linkedin.com/in/itsTowhid" class="social-link" aria-label="LinkedIn" target="_blank"
-                    rel="noopener">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                        <rect x="2" y="9" width="4" height="12" />
-                        <circle cx="4" cy="4" r="2" />
-                    </svg>
-                </a>
-                <a href="https://stackoverflow.com/users/411552/towhid" class="social-link" aria-label="Stack Overflow"
-                    target="_blank" rel="noopener">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M15.725 0l-1.72 1.277 6.39 8.588 1.72-1.277L15.725 0zm-3.94 3.418l-1.369 1.644 8.225 6.85 1.369-1.644-8.225-6.85zm-3.15 4.465l-.905 1.94 9.702 4.517.904-1.94-9.701-4.517zm-1.85 4.86l-.44 2.093 10.473 2.201.44-2.092-10.473-2.203zM1.89 15.47V24h19.19v-8.53h-2.133v6.397H4.021v-6.396H1.89zm4.265 2.133v2.13h10.66v-2.13H6.154z" />
-                    </svg>
-                </a>
-                <button class="theme-toggle" aria-label="Toggle theme">
-                    <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2">
-                        <circle cx="12" cy="12" r="5" />
-                        <path
-                            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-                    </svg>
-                    <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                    </svg>
-                </button>
-            </div>
             <button class="lang-toggle" id="lang-toggle" aria-label="Toggle language">
                 <span class="lang-text">EN</span>
+            </button>
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <circle cx="12" cy="12" r="5" />
+                    <path
+                        d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                </svg>
+                <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
             </button>
         </div>
     </nav>
@@ -228,9 +204,7 @@
 
     <footer class="footer">
         <div class="footer-content">
-            <span>© 2026 <span data-en="Built with" data-bn="তৈরি করা হয়েছে">Built with</span> <span
-                    class="heart">❤</span> <span data-en="by" data-bn="দ্বারা">by</span> <span
-                    id="footer-name"></span></span>
+            <span>© 2026 Built with <span class="heart"> ❤ </span> by Towhid</span>
         </div>
     </footer>
 
